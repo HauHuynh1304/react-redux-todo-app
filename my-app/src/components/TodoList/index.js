@@ -1,7 +1,22 @@
 import { Col, Row, Input, Button, Select, Tag } from "antd";
 import Todo from "../Todo";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../redux/actions";
+import { v4 as uuidv4 } from "uuid";
 
 export default function TodoList() {
+  const dispatch = useDispatch();
+  const handleAddButton = () => {
+    dispatch(
+      addTodo({
+        id: uuidv4,
+        name: "",
+        competed: false,
+        priority: "",
+      })
+    );
+  };
+
   return (
     <Row style={{ height: "calc(100% - 40px)" }}>
       <Col span={24} style={{ height: "calc(100% - 40px)", overflowY: "auto" }}>
@@ -23,7 +38,9 @@ export default function TodoList() {
               <Tag color="gray">Low</Tag>
             </Select.Option>
           </Select>
-          <Button type="primary">Add</Button>
+          <Button type="primary" onClick={handleAddButton}>
+            Add
+          </Button>
         </Input.Group>
       </Col>
     </Row>
